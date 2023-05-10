@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".presenter.FilePresenterActivity">
+
+    <TextView
+        android:layout_marginStart="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Сортировать по:"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/name_sort_type"
+                app:strokeColor="@color/gray"
+                android:backgroundTint="@color/gray"
+                android:layout_marginStart="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:cardCornerRadius="16dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="6dp"
+                        android:text="Названию"
+                        android:textColor="@color/black" />
+
+                    <ImageView
+                        android:id="@+id/name_arrow_downward"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="4dp"
+                        android:src="@drawable/baseline_arrow_downward_24"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/name_arrow_upward"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="4dp"
+                        android:src="@drawable/baseline_arrow_upward_24" />
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/expansion_sort_type"
+                android:layout_marginStart="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:strokeColor="@color/dark_gray"
+                app:cardCornerRadius="16dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="6dp"
+                        android:text="@string/expansion"
+                        android:textColor="@color/black" />
+
+                    <ImageView
+                        android:id="@+id/expansion_arrow_downward"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="4dp"
+                        android:src="@drawable/baseline_arrow_downward_24"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/expansion_arrow_upward"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="4dp"
+                        android:src="@drawable/baseline_arrow_upward_24"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/size_sort_type"
+                app:strokeColor="@color/dark_gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                app:cardCornerRadius="16dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="6dp"
+                        android:text="@string/size"
+                        android:textColor="@color/black" />
+
+                    <ImageView
+                        android:id="@+id/size_arrow_downward"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="4dp"
+                        android:src="@drawable/baseline_arrow_downward_24"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/size_arrow_upward"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="4dp"
+                        android:src="@drawable/baseline_arrow_upward_24"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/date_sort_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:background="@color/white"
+                app:strokeColor="@color/dark_gray"
+                app:cardCornerRadius="16dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="6dp"
+                        android:text="@string/date"
+                        android:textColor="@color/black" />
+
+                    <ImageView
+                        android:id="@+id/date_arrow_downward"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="4dp"
+                        android:src="@drawable/baseline_arrow_downward_24"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/date_arrow_upward"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="4dp"
+                        android:src="@drawable/baseline_arrow_upward_24"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+    </HorizontalScrollView>
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/folder_traver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_files"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </androidx.fragment.app.FragmentContainerView>
+
+
+</LinearLayout>
+
+
+

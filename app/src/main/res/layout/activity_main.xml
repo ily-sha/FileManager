@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".presenter.MainActivity">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/file_tree_cardview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingVertical="10dp"
+            android:text="@string/look_at_file_tree"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold">
+
+        </TextView>
+    </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/recalculate_file_changed"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingVertical="10dp"
+            android:text="@string/find_changed_file"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold">
+
+        </TextView>
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/loading_layout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginHorizontal="8dp">
+        <TextView
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:text="@string/loading_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <ProgressBar
+            android:layout_marginTop="12dp"
+            android:id="@+id/progress_bar"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:textColor="@color/black"
+            android:layout_marginTop="12dp"
+            android:textSize="22sp"
+            android:gravity="center"
+            android:text="@string/founded"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+        android:visibility="gone"
+
+        android:orientation="vertical"
+        android:id="@+id/file_changed_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:layout_marginTop="12dp"
+            android:layout_marginHorizontal="8dp"
+            android:id="@+id/file_changed_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/count_changed_files"
+            android:textSize="20sp" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="12dp"
+            android:id="@+id/files_rv"
+            android:layout_width="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:layout_height="wrap_content">
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
+
+
+    <TextView
+        android:visibility="gone"
+
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_marginTop="12dp"
+        android:layout_marginHorizontal="8dp"
+        android:id="@+id/permission_denial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/if_permission_denial"
+        android:textSize="20sp" />
+
+
+</LinearLayout>
