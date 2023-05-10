@@ -6,10 +6,13 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.filemanager.R
+import com.example.filemanager.databinding.ActivityFilePresenterBinding
+import com.example.filemanager.domain.FileEntity
 import com.example.filemanager.domain.SortDirection
 import com.example.filemanager.domain.SortType
-import com.example.filemanager.databinding.ActivityFilePresenterBinding
+import com.example.filemanager.mapFileIoListToFileEntities
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import java.io.File
 
 
 class FilePresenterActivity : AppCompatActivity() {
@@ -28,28 +31,32 @@ class FilePresenterActivity : AppCompatActivity() {
         SortType.NAME to SortDirection.TO_ASCENDING,
     )
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        val rootPath = Environment.getExternalStorageDirectory().absolutePath
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().add(
-                R.id.fragment_files,
-                FileTreeFragment.newIntent(rootPath, defaultSortedConfig)
-            ).commit()
+        val rootFile = Environment.getExternalStorageDirectory().absoluteFile
+        if (rootFile.listFiles() != null){
+            if (savedInstanceState == null) {
+                supportFragmentManager.beginTransaction().add(
+                    R.id.fragment_files,
+                    FileTreeFragment.newIntent(mapFileIoListToFileEntities(rootFile.listFiles()!!) as ArrayList<FileEntity>, defaultSortedConfig)
+                ).commit()
+            }
+            binding.dateSortType.setOnClickListener {
+                showBottomSheetDialog(SortType.DATE)
+            }
+            binding.sizeSortType.setOnClickListener {
+                showBottomSheetDialog(SortType.SIZE)
+            }
+            binding.expansionSortType.setOnClickListener {
+                showBottomSheetDialog(SortType.EXPANSION)
+            }
+            binding.nameSortType.setOnClickListener {
+                showBottomSheetDialog(SortType.NAME)
+            }
         }
-        binding.dateSortType.setOnClickListener {
-            showBottomSheetDialog(SortType.DATE)
-        }
-        binding.sizeSortType.setOnClickListener {
-            showBottomSheetDialog(SortType.SIZE)
-        }
-        binding.expansionSortType.setOnClickListener {
-            showBottomSheetDialog(SortType.EXPANSION)
-        }
-        binding.nameSortType.setOnClickListener {
-            showBottomSheetDialog(SortType.NAME)
-        }
+
     }
 
     private fun showBottomSheetDialog(sortType: SortType) {
@@ -73,6 +80,7 @@ class FilePresenterActivity : AppCompatActivity() {
                     binding.sizeSortType.strokeColor = resources.getColor(R.color.dark_gray)
                     defaultSortedConfig[SortType.SIZE] = SortDirection.NO_SORT
                 }
+
                 SortType.NAME -> {
                     binding.nameArrowUpward.visibility = View.GONE
                     binding.nameArrowDownward.visibility = View.GONE
@@ -117,6 +125,7 @@ class FilePresenterActivity : AppCompatActivity() {
                 binding.sizeSortType.strokeColor = resources.getColor(R.color.gray)
                 defaultSortedConfig[SortType.SIZE] = direction
             }
+
             SortType.NAME -> {
                 binding.nameArrowUpward.visibility = visibleView
                 binding.nameArrowDownward.visibility = invisibleView
@@ -144,17 +153,12 @@ class FilePresenterActivity : AppCompatActivity() {
         callFragmentAboutChange()
     }
 
-    private fun callFragmentAboutChange(){
+    private fun callFragmentAboutChange() {
         supportFragmentManager.fragments.forEach {
-            if (it is OnSortConfigChangeListener){
+            if (it is OnSortConfigChangeListener) {
                 it.onCategoryChanged(defaultSortedConfig)
             } else throw RuntimeException("fragment inside FilePresenterActivity must implement OnSortConfigChangeListener")
         }
     }
-
-
-
-
-
 
 }

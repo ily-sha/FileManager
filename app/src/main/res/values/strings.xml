@@ -2,6 +2,7 @@
     <string name="app_name">FileManager</string>
     <string name="look_at_file_tree">Посмотреть дерево файлов</string>
     <string name="count_changed_files">Пока вас не было изменилось %s файлов</string>
+    <string name="count_added_files">и добавилось %s файлов</string>
     <string name="title_activity_file_tree">FileTreeActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -57,4 +58,5 @@
     <string name="loading_description">Счимаем измененные файлы\nЭто может занять до нескольких минут</string>
     <string name="founded">Найдено: %s</string>
     <string name="find_changed_file">Найти изменившиеся файлы</string>
+    <string name="title_activity_image_presenter">ImagePresenterActivity</string>
 </resources>

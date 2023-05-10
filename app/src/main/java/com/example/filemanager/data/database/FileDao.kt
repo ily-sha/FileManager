@@ -3,6 +3,7 @@ package com.example.filemanager.data.database
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import java.util.LinkedList
@@ -16,7 +17,7 @@ interface FileDao {
     @Insert
     fun addFile(fileDbModel: FileDbModel)
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateFile(fileDbModel: FileDbModel)
 
     @Delete

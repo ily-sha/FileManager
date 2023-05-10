@@ -8,6 +8,7 @@
     tools:context=".presenter.FileTreeFragment">
 
     <ProgressBar
+        android:visibility="gone"
         android:id="@+id/progress_bar"
         android:indeterminate="true"
         app:layout_constraintBottom_toBottomOf="parent"

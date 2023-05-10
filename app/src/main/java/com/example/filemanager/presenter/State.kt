@@ -6,5 +6,5 @@ sealed class State
 
 
 object Loading : State()
-class FileChanged(val filesList: List<File>): State()
+class FileUploaded(val newFiles: List<File>, val changedFiles: List<File>): State()
 object PermissionDenial : State()

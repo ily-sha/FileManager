@@ -12,8 +12,10 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.filemanager.R
 import com.example.filemanager.databinding.ActivityMainBinding
+import com.example.filemanager.domain.FileEntity
+import com.example.filemanager.domain.SortDirection
+import com.example.filemanager.domain.SortType
 import com.example.filemanager.mapFileIoListToFileEntities
-import com.example.filemanager.presenter.adapter.FileAdapter
 
 class MainActivity : AppCompatActivity() {
     private val READ_STORAGE_PERMISSION_REQUEST_CODE = 41
@@ -32,24 +34,18 @@ class MainActivity : AppCompatActivity() {
         if (it) viewModel.startCalculateFileDiff()
     }
 
+    private val defaultSortedConfig = hashMapOf(
+        SortType.DATE to SortDirection.NO_SORT,
+        SortType.SIZE to SortDirection.NO_SORT,
+        SortType.EXPANSION to SortDirection.NO_SORT,
+        SortType.NAME to SortDirection.TO_ASCENDING,
+    )
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-//        lifecycleScope.launch {
-//            FileDifferent(application).apply {
-//                val h = File(Environment.getExternalStorageDirectory().absolutePath + "/Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Images/Копия IMG_20230509_195337.jpg").computeMd5()
-//                val j2 = File(Environment.getExternalStorageDirectory().absolutePath + "/Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Images/IMG_20230509_195337.jpg").computeMd5()
-//                Log.d("EEEEEEEE", h)
-//                Log.d("EEEEEEEE", j2)
-//                Log.d("EEEEEEEE", (j2 == h).toString())
-//
-//            }
-//        }
-        if (!permissionAccept()) {
-            requestPermission()
-        } else viewModel.startCalculateFileDiff()
         binding.fileTreeCardview.setOnClickListener {
             if (!permissionAccept()) {
                 requestPermission()
@@ -59,52 +55,72 @@ class MainActivity : AppCompatActivity() {
             }
         }
         observeLiveDate()
-
     }
 
     private fun observeLiveDate() {
-
         viewModel.state.observe(this) {
             when (it) {
                 is Loading -> {
                     binding.permissionDenial.visibility = View.GONE
-                    binding.fileChangedLayout.visibility = View.GONE
+                    binding.fileDifferentLayout.visibility = View.GONE
                     binding.loadingLayout.visibility = View.VISIBLE
                 }
-
-                is FileChanged -> {
+                is FileUploaded -> {
                     binding.permissionDenial.visibility = View.GONE
-                    binding.fileChangedLayout.visibility = View.VISIBLE
+                    binding.fileDifferentLayout.visibility = View.VISIBLE
                     binding.loadingLayout.visibility = View.GONE
                     binding.fileChangedTv.text =
-                        String.format(getString(R.string.count_changed_files), it.filesList.size)
-                    binding.filesRv.adapter = FileAdapter().apply {
-                        submitList(mapFileIoListToFileEntities(it.filesList.toTypedArray()))
-                    }
+                        String.format(getString(R.string.count_changed_files), it.changedFiles.size)
+                    binding.fileAddedTv.text =
+                        String.format(getString(R.string.count_added_files), it.newFiles.size)
+                    supportFragmentManager.beginTransaction().replace(
+                        binding.filesChangedFragment.id,
+                        FileTreeFragment.newIntent(
+                            mapFileIoListToFileEntities(
+                                it.changedFiles.toTypedArray()
+                            ) as ArrayList<FileEntity>,
+                            defaultSortedConfig
+                        )
+                    ).commit()
+                    supportFragmentManager.beginTransaction()
+                        .replace(
+                            binding.filesAddedFragment.id, FileTreeFragment.newIntent(
+                                mapFileIoListToFileEntities(
+                                    it.newFiles.toTypedArray()
+                                ) as ArrayList<FileEntity>,
+                                defaultSortedConfig
+                            )
+                        )
+                        .commit()
+
                 }
 
                 is PermissionDenial -> {
                     binding.permissionDenial.visibility = View.VISIBLE
-                    binding.fileChangedLayout.visibility = View.GONE
+                    binding.fileDifferentLayout.visibility = View.GONE
                     binding.loadingLayout.visibility = View.GONE
                 }
             }
         }
     }
 
-
-
+    override fun onStart() {
+        super.onStart()
+        if (!permissionAccept()) {
+            requestPermission()
+        } else viewModel.startCalculateFileDiff()
+    }
 
 
     override fun onRestart() {
         super.onRestart()
-        binding.recalculateFileChanged.visibility = View.VISIBLE
-        binding.recalculateFileChanged.setOnClickListener {
-            viewModel.startCalculateFileDiff()
+        if (viewModel.state.value is FileUploaded){
+            binding.recalculateFileChanged.visibility = View.VISIBLE
+            binding.recalculateFileChanged.setOnClickListener {
+                viewModel.startCalculateFileDiff()
+            }
         }
     }
-
-
 
 
 

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="12dp"
+    app:strokeWidth="0dp"
+    android:layout_marginStart="12dp"
+    android:backgroundTint="@color/gray"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:textColor="@color/black"
+        android:paddingVertical="6dp"
+        android:paddingHorizontal="16dp"
+        android:id="@+id/folder_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</com.google.android.material.card.MaterialCardView>

@@ -1,18 +1,17 @@
 package com.example.filemanager
 
 
-import android.graphics.BitmapFactory
-import android.graphics.drawable.Drawable
 import androidx.core.net.toUri
-import com.example.filemanager.data.database.FileDbModel
 import com.example.filemanager.domain.FileEntity
 import com.example.filemanager.domain.FileType
 import java.io.File
+import java.nio.file.Files
+import java.nio.file.attribute.BasicFileAttributes
 
 
 fun mapFileIoListToFileEntities(files: Array<out File>): List<FileEntity> {
 
-    fun defineFIleType(file: File): FileType {
+    fun defineFileType(file: File): FileType {
         if (file.isFile){
             return when (file.extension){
                 "png" -> FileType.PNG
@@ -34,10 +33,10 @@ fun mapFileIoListToFileEntities(files: Array<out File>): List<FileEntity> {
             absolutePath = it.absolutePath,
             isFile = it.isFile,
             isDirectory = it.isDirectory,
-            timeCreated = it.lastModified(),
+            timeCreated = Files.readAttributes(it.toPath(), BasicFileAttributes::class.java).creationTime().toMillis(),
             size = if (it.isDirectory) 0 else it.length(),
             uri = it.toUri(),
-            fileType = defineFIleType(it)
+            fileType = defineFileType(it)
 //            drawable = Drawable.createFromPath(it.absolutePath)
 
         )

@@ -199,7 +199,7 @@
         android:layout_height="wrap_content">
         <LinearLayout
             android:orientation="horizontal"
-            android:id="@+id/folder_traver"
+            android:id="@+id/visited_folder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 

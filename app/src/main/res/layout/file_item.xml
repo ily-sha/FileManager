@@ -7,16 +7,15 @@
     android:layout_marginBottom="12dp">
 
     <ImageView
-
         android:id="@+id/file_image"
-
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
-        android:src="@drawable/icon_folder" />
+        android:src="@drawable/icon_file" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:orientation="vertical"
@@ -27,11 +26,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:maxLines="2"
             android:id="@+id/file_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="CUTE_EDITED1631638154502.jpg"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -55,12 +54,16 @@
                 android:layout_height="wrap_content"
                 android:text="12 КБ"
                 android:textColor="@color/black" />
-
-
-
         </LinearLayout>
 
     </LinearLayout>
+    <ImageView
+        android:layout_marginEnd="8dp"
+        android:id="@+id/send_button"
+        android:layout_gravity="center"
+        android:src="@drawable/baseline_send_24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 
 </LinearLayout>
